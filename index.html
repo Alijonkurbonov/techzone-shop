@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TechZone — Elektron Aksessuarlar</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #0d0d0d;
+      --white: #f5f5f0;
+      --accent: #00c2ff;
+      --accent2: #0077ff;
+      --gray: #7a7a7a;
+      --card-bg: #161616;
+      --border: #2a2a2a;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.95);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      backdrop-filter: blur(10px);
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--white);
+    }
+    .logo span { color: var(--accent); }
+    nav ul {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    nav ul a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--white); }
+    .nav-btn {
+      background: var(--accent);
+      color: var(--black);
+      border: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .nav-btn:hover { opacity: 0.85; }
+
+    /* HERO */
+    .hero {
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,194,255,0.08) 0%, transparent 70%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      max-width: 800px;
+      margin-bottom: 24px;
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      color: var(--gray);
+      font-size: 1.1rem;
+      max-width: 520px;
+      margin-bottom: 40px;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: var(--black);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, opacity 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--border);
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--gray); }
+
+    /* STATS */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 64px;
+      padding: 40px 48px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .stat h3 {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .stat p {
+      color: var(--gray);
+      font-size: 0.85rem;
+    }
+
+    /* SECTION */
+    section {
+      padding: 80px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-label {
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 48px;
+    }
+
+    /* PRODUCTS */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .product-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+    .product-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+    .product-img {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      background: #1a1a1a;
+    }
+    .product-info {
+      padding: 20px;
+    }
+    .product-tag {
+      font-size: 0.7rem;
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .product-name {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .product-desc {
+      color: var(--gray);
+      font-size: 0.82rem;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .product-price {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .add-btn {
+      background: var(--accent);
+      color: var(--black);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .add-btn:hover { opacity: 0.8; }
+
+    /* FEATURES */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+    }
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+    .feature-card h4 {
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      color: var(--gray);
+      font-size: 0.85rem;
+    }
+
+    /* CONTACT */
+    #contact {
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      max-width: 100%;
+      padding: 80px 48px;
+    }
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .contact-info h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .contact-info p {
+      color: var(--gray);
+      margin-bottom: 32px;
+    }
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    .contact-detail span:first-child {
+      font-size: 1.2rem;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: var(--white);
+      font-size: 0.9rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--accent);
+    }
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 32px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    footer p {
+      color: var(--gray);
+      font-size: 0.82rem;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: var(--accent);
+      color: var(--black);
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s;
+      z-index: 999;
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      nav ul { display: none; }
+      section { padding: 60px 20px; }
+      .stats { gap: 32px; padding: 32px 20px; }
+      .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+      #contact { padding: 60px 20px; }
+      footer { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Tech<span>Zone</span></div>
+  <ul>
+    <li><a href="#home">Asosiy</a></li>
+    <li><a href="#products">Mahsulotlar</a></li>
+    <li><a href="#contact">Aloqa</a></li>
+  </ul>
+  <button class="nav-btn">🛒 Savat</button>
+</nav>
+
+<!-- HERO -->
+<div id="home" class="hero">
+  <div class="hero-badge">Toshkentning #1 tech do'koni</div>
+  <h1>Eng yaxshi<br/><span>elektron aksessuarlar</span></h1>
+  <p>Simlar, naushniklar, quvvatlash bloklari va boshqa aksessuarlar — tez yetkazib berish bilan.</p>
+  <div class="hero-btns">
+    <a href="#products" class="btn-primary">Mahsulotlarni ko'rish</a>
+    <a href="#contact" class="btn-secondary">Biz bilan bog'laning</a>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><h3>500+</h3><p>Mahsulot turi</p></div>
+  <div class="stat"><h3>2400+</h3><p>Mamnun mijoz</p></div>
+  <div class="stat"><h3>24/7</h3><p>Qo'llab-quvvatlash</p></div>
+  <div class="stat"><h3>1 kun</h3><p>Yetkazib berish</p></div>
+</div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-label">Katalog</div>
+  <div class="section-title">Mashhur mahsulotlar</div>
+  <div class="products-grid">
+
+    <div class="product-card">
+      <div class="product-img">🎧</div>
+      <div class="product-info">
+        <div class="product-tag">Naushnik</div>
+        <div class="product-name">Pro Wireless Naushnik</div>
+        <div class="product-desc">Bluetooth 5.3, 30 soat batareya, aktiv shovqin bekor qilish</div>
+        <div class="product-footer">
+          <span class="product-price">189,000 so'm</span>
+          <button class="add-btn" onclick="addToCart('Pro Wireless Naushnik')">+ Qo'shish</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🔌</div>
+      <div class="product-info">
+        <div class="product-tag">Quvvatlash</div>
+        <div class="product-name">65W GaN Adapter</div>
+        <div class="product-desc">USB-C PD, 3 port, noutbuk va telefon uchun, kichik va engil</div>
+        <div class="product-footer">
+          <span class="product-price">145,000 so'm</span>
+          <button class="add-btn" onclick="addToCart('65W GaN Adapter')">+ Qo'shish</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🔋</div>
+      <div class="product-info">
+        <div class="product-tag">Power Bank</div>
+        <div class="product-name">20000mAh Power Bank</div>
+        <div class="product-desc">PD 45W tez zaryadlash, LED ko'rsatgich, 3 qurilma bir vaqtda</div>
+        <div class="product-footer">
+          <span class="product-price">219,000 so'm</span>
+          <button class="add-btn" onclick="addToCart('20000mAh Power Bank')">+ Qo'shish</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">📱</div>
+      <div class="product-info">
+        <div class="product-tag">Himoya</div>
+        <div class="product-name">Premium Telefon Chexoli</div>
+        <div class="product-desc">iPhone va Samsung uchun, zarb absorbsiyasi, toza shaffof dizayn</div>
+        <div class="product-footer">
+          <span class="product-price">49,000 so'm</span>
+          <button class="add-btn" onclick="addToCart('Premium Telefon Chexoli')">+ Qo'shish</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🖥️</div>
+      <div class="product-info">
+        <div class="product-tag">Kabel</div>
+        <div class="product-name">USB-C 240W Kabel</div>
+        <div class="product-desc">2m, nylondan to'qilgan, 240W quvvat + 40Gbps ma'lumot uzatish</div>
+        <div class="product-footer">
+          <span class="product-price">65,000 so'm</span>
+          <button class="add-btn" onclick="addToCart('USB-C 240W Kabel')">+ Qo'shish</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🖱️</div>
+      <div class="product-info">
+        <div class="product-tag">Kompyuter</div>
+        <div class="product-name">Silent Wireless Sichqoncha</div>
+        <div class="product-desc">2.4GHz, 1600 DPI, 18 oy batareya, ovozoz chiqarmaydi</div>
+        <div class="product-footer">
+          <span class="product-price">89,000 so'm</span>
+          <button class="add-btn" onclick="addToCart('Silent Wireless Sichqoncha')">+ Qo'shish</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section>
+  <div class="section-label">Nima uchun biz?</div>
+  <div class="section-title">Bizning afzalliklarimiz</div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🚚</div>
+      <h4>Tez yetkazib berish</h4>
+      <p>Toshkent bo'ylab 1 kun ichida, viloyatlarga 2-3 kun ichida yetkazib beramiz.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">✅</div>
+      <h4>Original mahsulotlar</h4>
+      <p>Faqat rasmiy distribyutorlardan keltirilgan original va sertifikatlangan mahsulotlar.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔄</div>
+      <h4>14 kun kafolat</h4>
+      <p>Mahsulot kutganingizga to'g'ri kelmasa, 14 kun ichida qaytarib bering.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💬</div>
+      <h4>24/7 qo'llab-quvvatlash</h4>
+      <p>Har qanday savolingiz bo'lsa, Telegram yoki telefon orqali doim yordam beramiz.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div id="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <div class="section-label">Aloqa</div>
+      <h2>Biz bilan bog'laning</h2>
+      <p>Savol yoki buyurtma uchun quyidagi ma'lumotlardan foydalaning.</p>
+      <div class="contact-detail"><span>📍</span><span>Toshkent sh., Chilonzor tumani, 3-kvartal</span></div>
+      <div class="contact-detail"><span>📞</span><span>+998 90 123 45 67</span></div>
+      <div class="contact-detail"><span>✉️</span><span>info@techzone.uz</span></div>
+      <div class="contact-detail"><span>🕐</span><span>Dush–Shan: 09:00 – 20:00</span></div>
+    </div>
+    <div class="contact-form">
+      <input type="text" placeholder="Ismingiz" />
+      <input type="tel" placeholder="Telefon raqamingiz" />
+      <input type="email" placeholder="Email manzilingiz" />
+      <textarea placeholder="Xabaringiz yoki buyurtmangiz..."></textarea>
+      <button class="btn-primary" onclick="submitForm()">Yuborish →</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Tech<span>Zone</span></div>
+  <p>© 2025 TechZone. Barcha huquqlar himoyalangan.</p>
+  <p style="color: var(--gray); font-size: 0.8rem;">Toshkent, O'zbekiston</p>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  function addToCart(name) {
+    showToast('✓ ' + name + ' savatga qo\'shildi');
+  }
+
+  function submitForm() {
+    showToast('✓ Xabaringiz yuborildi! Tez orada bog\'lanamiz.');
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
